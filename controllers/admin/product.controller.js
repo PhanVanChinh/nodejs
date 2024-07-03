@@ -1,36 +1,15 @@
-const Product= require("../../models/product.model")
+const Product= require("../../models/product.model");
+const filterStatusHelper=require("../../helpers/filterStatus");
+const searchHelper=require("../../helpers/search");
 
 const paginationHelper= require("../../helpers/pagination");
 
 // [GET] /admin/products
 module.exports.index=async (req, res) => {
   // console.log(req.query.status);
-  let filterStatus=[
-    {
-      name :"Tất cả",
-      status: "",
-      class:""
-    },
-    {
-      name :"Hoạt động",
-      status: "active",
-      class:""
-    },
-    {
-      name :"Dừng hoạt động",
-      status: "inactive",
-      class:""
-    }
-  ];
-  if (req.query.status){
-    const index = filterStatus.findIndex(item=> item.status == req.query.status);
-    filterStatus[index].class ="active";
-  }
-  else{
-    const index = filterStatus.findIndex(item=> item.status == "");
-    filterStatus[index].class ="active";
 
-  }
+  // bộ lọc
+ const filterStatus=filterStatusHelper(req.query);
 
     let find={
         deleted : false
@@ -41,11 +20,12 @@ module.exports.index=async (req, res) => {
     }
 
 // xử lí tìm kiêmd bằng regex
-    let keyword ="";
-    if(req.query.keyword){
-        keyword=req.query.keyword;
-        const regex=new RegExp(keyword,"i");
-        find.title=regex;
+const objectSearch=searchHelper(req.query);
+console.log(objectSearch);
+   
+    if(objectSearch.regex){
+       
+        find.title=objectSearch.regex;
       }
 
 //Pagination - phân trang
@@ -54,7 +34,7 @@ module.exports.index=async (req, res) => {
   let objectPagination= paginationHelper(
     {
     currentPage : 1,
-    limitItems: 4
+    limitItems: 5
   },
   req.query,
   countProducts
@@ -67,7 +47,7 @@ module.exports.index=async (req, res) => {
         pageTitle :" Danh sách sản phẩm",
         products: products,
         filterStatus: filterStatus,
-        keyword: keyword,
+        keyword: objectSearch.keyword,
         pagination : objectPagination
       });
     };
@@ -96,4 +76,14 @@ module.exports.createPort = async (req,res) => {
   await product.save();
   res.redirect(`/admin/products`);
  
+};
+//[get] /admin/products/change-status/:status/:id
+module.exports.changeStatus=async (req,res)=>{
+  console.log(req.params);
+  const status = req.params.status;
+  const id = req.params.id;
+
+  await Product.updateOne({ _id: id }, { status: status });
+
+  res.redirect("back");
 };
