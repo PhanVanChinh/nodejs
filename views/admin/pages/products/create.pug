@@ -1,0 +1,50 @@
+extends ../../layouts/default.pug
+
+block main
+  h1.mb-4 Thêm sản phẩm
+
+  form(action="/admin/products/create" method="POST")
+    //- Tiêu đề
+    .form-group
+      label(for="title") Tiêu đề
+      input#title.form-control(type="text" placeholder="Nhập tiêu đề sản phẩm" name="title")
+
+    //- Mô tả
+    .form-group
+      label(for="description") Mô tả
+      textarea#description.form-control(rows="3" placeholder="Nhập mô tả sản phẩm" name="description")
+
+    //- Giá
+    .form-group
+      label(for="price") Giá
+      input#price.form-control(type="number" placeholder="Nhập giá sản phẩm" name="price")
+
+    //- Giảm giá
+    .form-group
+      label(for="discount") Giảm giá
+      input#discount.form-control(type="number" placeholder="Nhập phần trăm giảm giá" name="discount")
+
+    //- Số lượng
+    .form-group
+      label(for="quantity") Số lượng
+      input#quantity.form-control(type="number" placeholder="Nhập số lượng sản phẩm" name="quantity")
+
+    //- Ảnh
+    .form-group
+      label(for="image") Ảnh
+      input#image.form-control(type="text" placeholder="URL hình ảnh sản phẩm" name="image")
+
+    //- Trạng thái
+    .form-group
+      label(for="status") Trạng thái
+      select#status.form-control(name="status")
+        option(value="active") Hoạt động
+        option(value="inactive") Ngừng hoạt động
+
+    //- Vị trí
+    .form-group
+      label(for="position") Vị trí
+      input#position.form-control(type="number" placeholder="Nhập vị trí hiển thị" name="position")
+
+    //- Nút submit
+    button.btn.btn-primary(type="submit") Thêm sản phẩm

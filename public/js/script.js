@@ -1,14 +1,15 @@
-const formSeach = doccument.querySelector("#form-Seach");
-if (formSeach) {
-    let url=new URL(window.location.href);
-    formSeach.addEvenListener("submit",(e) => {
+const formSearch = document.querySelector("#form-Search");
+if (formSearch) {
+    let url = new URL(window.location.href);
+    formSearch.addEventListener("submit", (e) => {
         e.preventDefault();
-        const keyword = e.target.element.keyword.value;
-    if (keyword){
-        url.searchParams.set("keyword", keyword);
+        const keyword = e.target.elements.keyword.value; // 'elements' instead of 'element'
+        if (keyword) {
+            url.searchParams.set("keyword", keyword);
+        } else {
+            url.searchParams.delete("keyword");
+        }
+        window.location.href = url.href;
+    });
+}
 
-    }else{
-        url.searchParams.delete("keyword");
-    }
-    window.location.href=url.href;
-});}xs

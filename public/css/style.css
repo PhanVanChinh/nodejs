@@ -1,48 +1,49 @@
-/* Style for header */
+Style for header
 header.header {
-    background-color: #f8f9fa; /* Light background color */
-    padding: 10px 0;
-  }
-  
-  header.header .inner-logo img {
-    max-width: 100px; /* Adjust the width as needed */
-    max-height: auto; /* Maintain aspect ratio */
-  }
-  
-  header.header .inner-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  header.header .inner-menu ul li {
-    margin-left: 20px;
-  }
-  
-  header.header .inner-menu ul li a {
-    text-decoration: none;
-    color: #333; /* Dark text color */
-    font-weight: bold;
-    transition: color 0.3s ease;
-  }
-  
-  header.header .inner-menu ul li a:hover {
-    color: #007bff; /* Link color on hover */
-  }
-  
-  /* Style for footer */
-  footer.footer {
-    background-color: #343a40; /* Dark background color */
-    color: #fff; /* White text color */
-    padding: 20px 0;
-    text-align: center;
-  }
-  
-  footer.footer p {
-    margin: 0;
-  }
+  background-color: #f8f9fa; /* Light background color */
+  padding: 10px 0;
+}
+
+header.header .inner-logo img {
+  max-width: 100px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+header.header .inner-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+header.header .inner-menu ul li {
+  margin-left: 20px;
+}
+
+header.header .inner-menu ul li a {
+  text-decoration: none;
+  color: #333; /* Dark text color */
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+header.header .inner-menu ul li a:hover {
+  color: #007bff; /* Link color on hover */
+}
+
+/* Style for footer */
+footer.footer {
+  background-color: #343a40; /* Dark background color */
+  color: #fff; /* White text color */
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer.footer p {
+  margin: 0;
+}
+
 /* General container styling */
 .container {
   margin-top: 1rem;
@@ -90,7 +91,6 @@ header.header {
 .product-item .inner-title-new {
   font-size: 1.25rem;
   color: #27ae60; /* Discount in green */
- 
   margin-bottom: 5px;
 }
 
@@ -104,6 +104,5 @@ header.header {
 .product-item .inner-discount {
   font-size: 1rem;
   color: #e74c3c; /* New price in red */
- 
   margin-bottom: 5px;
 }
