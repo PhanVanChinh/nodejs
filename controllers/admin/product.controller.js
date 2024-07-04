@@ -26,6 +26,7 @@ console.log(objectSearch);
     if(objectSearch.regex){
        
         find.title=objectSearch.regex;
+       
       }
 
 //Pagination - phân trang
@@ -77,13 +78,24 @@ module.exports.createPort = async (req,res) => {
   res.redirect(`/admin/products`);
  
 };
-//[get] /admin/products/change-status/:status/:id
+//[patch] /admin/products/change-status/:status/:id
 module.exports.changeStatus=async (req,res)=>{
   console.log(req.params);
   const status = req.params.status;
   const id = req.params.id;
 
   await Product.updateOne({ _id: id }, { status: status });
+
+  res.redirect("back");
+};
+
+//[delete] /admin/products/delete/:id
+module.exports.deleteItem=async (req,res)=>{
+  
+  const id = req.params.id;
+
+  // await Product.deleteOne({ _id: id  });
+  await Product.updateOne({ _id: id  },{deleted: true});
 
   res.redirect("back");
 };
