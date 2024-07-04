@@ -64,7 +64,7 @@ res.render('admin/pages/products/create',{
 module.exports.createPort = async (req,res) => {
    req.body.price=parseInt(req.body.price);
    req.body.discountPercentage=paseInt(req.body.discountPercentage);
-   req.body.stock=paseInt(req.body.stock); 
+   req.body.stock=parseInt(req.body.stock); 
 
    if(req.body.position==""){
     const countProducts= await Product.countDocuments();
@@ -78,7 +78,7 @@ module.exports.createPort = async (req,res) => {
   res.redirect(`/admin/products`);
  
 };
-//[patch] /admin/products/change-status/:status/:id
+//[Patch] /admin/products/change-status/:status/:id
 module.exports.changeStatus=async (req,res)=>{
   console.log(req.params);
   const status = req.params.status;
@@ -89,13 +89,35 @@ module.exports.changeStatus=async (req,res)=>{
   res.redirect("back");
 };
 
-//[delete] /admin/products/delete/:id
+//[Patch] /admin/products/change-multi
+module.exports.changeMulti=async (req,res)=>{
+  const type=req.body.type;
+  const ids=req.body.ids.split(",");
+
+  switch (type) {
+    case "active":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "active"});
+      break;
+    case "inactive":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "inactive"});
+      break;
+    case "delete-all":
+      await Product.updateMany({ _id: { $in: ids } }, { deleted: true, deletedAt: new Date()});
+      break;
+    default:
+      break;
+  }
+  res.redirect("back")
+
+};
+
+//[Delete] /admin/products/delete/:id
 module.exports.deleteItem=async (req,res)=>{
   
   const id = req.params.id;
 
-  // await Product.deleteOne({ _id: id  });
-  await Product.updateOne({ _id: id  },{deleted: true});
+     // await Product.deleteOne({ _id: id  });
+  await Product.updateOne({ _id: id  },{deleted: true,deletedAt: new Date()});
 
   res.redirect("back");
 };
